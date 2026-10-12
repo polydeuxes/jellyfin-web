@@ -1945,5 +1945,7 @@
     "LabelPlayerSizes": "Player sizes",
     "LabelPlaybackQuality": "Frame dropped / corrupted",
     "AudioLanguages": "Audio languages",
-    "SubtitleLanguages": "Subtitle languages"
+    "SubtitleLanguages": "Subtitle languages",
+    "LabelAudioOnlyHlsSegmentLength": "Audio-only HLS segment length",
+    "LabelAudioOnlyHlsSegmentLengthHelp": "Length of audio-only HLS segments in seconds. Must be between 1 and 30. The default is 6 seconds."
 }
