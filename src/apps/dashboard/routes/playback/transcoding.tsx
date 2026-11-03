@@ -30,6 +30,10 @@ import { ActionData } from 'types/actionData';
 import { CODECS, HEVC_REXT_DECODING_TYPES, HEVC_VP9_HW_DECODING_TYPES } from 'apps/dashboard/features/playback/constants/codecs';
 import SimpleAlert from 'components/SimpleAlert';
 
+type TranscodingEncodingOptions = EncodingOptions & {
+    AudioOnlyHlsSegmentLength?: number;
+};
+
 const CONFIG_KEY = 'encoding';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -51,8 +55,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export const Component = () => {
-    const { data: initialConfig, isPending, isError } = useNamedConfiguration<EncodingOptions>(CONFIG_KEY);
-    const [ config, setConfig ] = useState<EncodingOptions | null>(null);
+    const { data: initialConfig, isPending, isError } = useNamedConfiguration<TranscodingEncodingOptions>(CONFIG_KEY);
+    const [ config, setConfig ] = useState<TranscodingEncodingOptions | null>(null);
     const navigation = useNavigation();
     const actionData = useActionData() as ActionData | undefined;
     const submit = useSubmit();
@@ -891,6 +895,23 @@ export const Component = () => {
                                     htmlInput: {
                                         min: 10,
                                         max: 3600,
+                                        step: 1
+                                    }
+                                }}
+                            />
+
+                            <TextField
+                                name='AudioOnlyHlsSegmentLength'
+                                value={config.AudioOnlyHlsSegmentLength ?? 6}
+                                onChange={onConfigChange}
+                                label={globalize.translate('LabelAudioOnlyHlsSegmentLength')}
+                                helperText={globalize.translate('LabelAudioOnlyHlsSegmentLengthHelp')}
+                                type='number'
+                                slotProps={{
+                                    htmlInput: {
+                                        required: true,
+                                        min: 1,
+                                        max: 30,
                                         step: 1
                                     }
                                 }}
